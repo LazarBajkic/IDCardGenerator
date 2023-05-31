@@ -1,11 +1,19 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class UserIDFillout extends JFrame{
+import javax.swing.JButton;
+
+public class UserIDFillout extends JFrame implements ActionListener{
     
     JTextField name;
     JTextField age;
@@ -23,6 +31,7 @@ public class UserIDFillout extends JFrame{
     JLabel validUntLbl;
     JLabel phoneNumLbl;
     
+    JButton confirm;
     JPanel panel;
 
     UserIDFillout(){
@@ -43,6 +52,10 @@ public class UserIDFillout extends JFrame{
         validUntLbl = new JLabel("Enter expiration date");
         phoneNumLbl = new JLabel("Enter phone number");
         
+        confirm = new JButton("Confirm");
+        setButtonProperties(confirm);
+        confirm.addActionListener(this);
+
         setSizeTextField(name);
         setSizeTextField(age);
         setSizeTextField(address);
@@ -67,6 +80,16 @@ public class UserIDFillout extends JFrame{
         field.setPreferredSize(new Dimension(200, 30));
     }
 
+    void setButtonProperties(JButton btn){
+        btn.setPreferredSize(new Dimension(200, 30));
+        btn.setLocation(10,400);
+        btn.setFocusable(false);
+        btn.setBackground(Color.gray);
+        btn.setForeground(Color.MAGENTA);
+        btn.setFont((new Font("Tahoma",Font.BOLD,15)));
+        btn.addActionListener(this);
+    }
+
     void setLabelSize(JLabel label){
         label.setPreferredSize(new Dimension(200, 30));
     }
@@ -76,9 +99,10 @@ public class UserIDFillout extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setLayout(null);
-        
+        this.setResizable(false);
+
         panel = new JPanel();
-        panel.setSize(250, 500);
+        panel.setSize(250, 550);
         panel.setLocation(125, 10);
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -86,6 +110,8 @@ public class UserIDFillout extends JFrame{
         panel.add(name);
         panel.add(ageLbl);
         panel.add(age);
+        panel.add(phoneNumLbl);
+        panel.add(phoneNum);
         panel.add(addressLbl);
         panel.add(address);
         panel.add(DOBLbl);
@@ -94,9 +120,19 @@ public class UserIDFillout extends JFrame{
         panel.add(issued);
         panel.add(validUntLbl);
         panel.add(validUnt);
-        panel.add(phoneNumLbl);
-        panel.add(phoneNum);
+        panel.add(confirm);
         
         this.add(panel);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        if(e.getSource()==confirm && !name.getText().isEmpty()  && !age.getText().isEmpty() && !phoneNum.getText().isEmpty()  && !address.getText().isEmpty()  && !DOB.getText().isEmpty()  && !issued.getText().isEmpty()  && !validUnt.getText().isEmpty()){
+                new GivenCardCopy();
+        }else {
+            JOptionPane.showMessageDialog(null,"You must fill out all the fields");
+        }
+    }
+    
 }
