@@ -25,6 +25,7 @@ public class StartScreen extends JFrame implements ActionListener{
         createID.setForeground(Color.MAGENTA);
         createID.setFont((new Font("Tahoma",Font.BOLD,15)));
         createID.addActionListener(this);
+        createID.setBorder(new RoundBorder(10));
 
         logo = new JLabel(logoImg);
         logo.setSize(350,250);
